@@ -74,9 +74,9 @@ def evaluate_f1_score_cellseg(masks_true, masks_pred, threshold=0.5):
                 fn += fn_i
 
     # Calculate f1 score
-    precision, recall, f1_score = evaluate_f1_score(tp, fp, fn)
+    precision, recall, f1_score, ap = evaluate_f1_score(tp, fp, fn)
 
-    return precision, recall, f1_score
+    return precision, recall, f1_score, ap
 
 
 def evaluate_f1_score(tp, fp, fn):
@@ -90,8 +90,9 @@ def evaluate_f1_score(tp, fp, fn):
         precision = tp / (tp + fp)
         recall = tp / (tp + fn)
         f1_score = 2 * (precision * recall) / (precision + recall)
+        ap = (tp) / (tp + fp + fn)
 
-    return precision, recall, f1_score
+    return precision, recall, f1_score, ap
 
 
 def _remove_boundary_cells(mask):
@@ -142,7 +143,7 @@ def _get_true_positive(iou, threshold=0.5):
     num_matched = min(iou.shape[0], iou.shape[1])
 
     # Find optimal matching by using IoU as tie-breaker
-    costs = -(iou >= threshold).astype(np.float) - iou / (2 * num_matched)
+    costs = -(iou >= threshold).astype(float) - iou / (2 * num_matched)
     matched_gt_label, matched_pred_label = linear_sum_assignment(costs)
 
     # Consider as the same instance only if the IoU is above the threshold
