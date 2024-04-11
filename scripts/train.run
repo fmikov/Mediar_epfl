@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --chdir /home/mikoviny/MEDIAR/training_result
+#SBATCH --partition=gpu
+#SBATCH --qos=gpu_free
+#SBATCH --gres=gpu:1
+#SBATCH --nodes=1
+#SBATCH --time=8:00:0
+#SBATCH --cpus-per-task=4
+#SBATCH --mem 20G
+
+echo STARTED  at `date`
+
+source /home/mikoviny/venvs/mediar/bin/activate
+
+cd /home/mikoviny/MEDIAR
+
+python3.9 ./generate_mapping.py
+
+echo {} > /home/mikoviny/MEDIAR/train_tools/data_utils/mapping_tuning.json
+
+python3.9 ./scripts/training.py --root="/home/mikoviny/MEDIAR" --epoch=70 --batch_size=8 --valid_portion=0.1
+
+echo FINISHED at `date`
