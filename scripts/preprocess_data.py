@@ -151,6 +151,18 @@ output_directory_labels = LOCAL_MEDIAR_PATH + '/lab_test_separated/labels'
 
 separate_images_in_directory_test(output_test_directory, output_directory_images, output_directory_labels)
 
+
+#Create lab data ground truth folder, this is only used when evaluating our predictions (not in the predictor itself), because the evaluation needs lab data without any transformations
+# that we did in all other cases
+input_directory = LOCAL_MEDIAR_PATH + '/Test_images_for_ML_class_2023'
+output_directory_images = LOCAL_MEDIAR_PATH + '/temp'
+output_directory_labels = LOCAL_MEDIAR_PATH + '/lab_ground_truth'
+
+# Delete temp folder, unused for prediction, only created when splitting the data
+os.system('rm -r temp')
+
+separate_images_in_directory(input_directory, output_directory_images, output_directory_labels)
+
 # Directory path
 directory_path = LOCAL_MEDIAR_PATH + '/lab_ground_truth'
 
@@ -163,29 +175,3 @@ for filename in os.listdir(directory_path):
 
         # Rename the file
         os.rename(os.path.join(directory_path, filename), new_filename)
-
-#Download files we need to replace
-
-#evaluate.py
-os.remove(LOCAL_MEDIAR_PATH + '/evaluate.py')
-os.system("gdown --id 1cslf6tQp-YBcwnyGwuFrTbs5QLUio07x")
-shutil.move('evaluate.py', LOCAL_MEDIAR_PATH + '/evaluate.py')
-
-# #generate_mapping.py
-os.remove(LOCAL_MEDIAR_PATH + '/generate_mapping.py')
-os.system("gdown --id 1ozp6XgLMluUG4QM7aFoQqeDL1r2wVDSA")
-
-
-#finetuning1.json
-os.remove(LOCAL_MEDIAR_PATH + '/config/step2_finetuning/finetuning1.json')
-os.system("gdown --id 1BOpfhTqzrWO6pZFBYHtRpyqWIjEGiIxL")
-shutil.move('finetuning1.json', LOCAL_MEDIAR_PATH + '/config/step2_finetuning/finetuning1.json')
-
-# #measures.py
-os.remove(LOCAL_MEDIAR_PATH + '/train_tools/measures.py')
-os.system("gdown --id 15_X-a1D-YS0Rx4iUUBALgSwZx7kUg_xp")
-shutil.move('measures.py', LOCAL_MEDIAR_PATH + '/train_tools/measures.py')
-
-
-# generate mapping
-os.system(f'python ./generate_mapping.py --root={LOCAL_MEDIAR_PATH} ')

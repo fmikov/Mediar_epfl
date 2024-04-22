@@ -53,7 +53,6 @@ def get_dataloaders_labeled(
             data_label_dict = pickle.load(f)
 
         data_point_dict = {}
-
         for label, data_lst in data_label_dict.items():
             data_point_dict[label] = []
 
@@ -64,13 +63,13 @@ def get_dataloaders_labeled(
                     print(label, d_idx)
 
         data_dicts = []
-
         for label, data_points in data_point_dict.items():
             len_data_points = len(data_points)
 
             if len_data_points >= 50:
                 data_dicts += data_points
             else:
+                if(len_data_points == 0): continue
                 for i in range(50):
                     data_dicts.append(data_points[i % len_data_points])
 

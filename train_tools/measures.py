@@ -84,7 +84,7 @@ def evaluate_f1_score(tp, fp, fn):
 
     # Do not Compute on trivial results
     if tp == 0:
-        precision, recall, f1_score = 0, 0, 0
+        precision, recall, f1_score, ap = 0, 0, 0, 0
 
     else:
         precision = tp / (tp + fp)

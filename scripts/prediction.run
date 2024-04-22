@@ -14,10 +14,6 @@ source /home/mikoviny/venvs/mediar/bin/activate
 
 cd /home/mikoviny/MEDIAR
 
-python3.9 ./generate_mapping.py
-
-echo {} > /home/mikoviny/MEDIAR/train_tools/data_utils/mapping_tuning.json
-
-python3.9 ./scripts/training.py --root="/home/mikoviny/MEDIAR" --epoch=30 --batch_size=8 --valid_portion=0.1 --amplified
+python3.9 prediction.py --model_path='/home/mikoviny/MEDIAR/weights/yeast_trained/100_epochs.pth' --in_path='/home/mikoviny/MEDIAR/lab_test_separated/images' --gt_path='/home/mikoviny/MEDIAR/lab_ground_truth' > prediction_output.txt
 
 echo FINISHED at `date`

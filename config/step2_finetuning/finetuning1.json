@@ -3,8 +3,8 @@
         "labeled": {
             "root": "/home/mikoviny/MEDIAR",
             "mapping_file": "./train_tools/data_utils/mapping_labeled.json",
-            "mapping_file_tuning": "./train_tools/data_utils/mapping_tuning.json",
-            "amplified": false,
+            "mapping_file_tuning": "./train_tools/data_utils/mapping_labeled.json",
+            "amplified": true,
             "batch_size": 8,
             "valid_portion": 0.1
         },
@@ -33,10 +33,10 @@
         "trainer": {
             "name": "mediar",
             "params": {
-                "num_epochs": 70,
+                "num_epochs": 30,
                 "valid_frequency": 1,
                 "device": "cuda:0",
-                "amp": false,
+                "amp": true,
                 "algo_params": {
                     "with_public": false
                 }

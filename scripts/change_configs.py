@@ -28,6 +28,7 @@ with open(LOCAL_MEDIAR_PATH + "/config/step2_finetuning/finetuning1.json", "r") 
 # Update file paths in the JSON data
 config["data_setups"]["labeled"]["root"] = new_root_path
 config["data_setups"]["labeled"]["amplified"] = args.amplified
+config["train_setups"]["trainer"]["params"]["amp"] = args.amplified
 config["data_setups"]["labeled"]["batch_size"] = args.batch_size
 config["data_setups"]["labeled"]["valid_portion"] = args.valid_portion
 config["data_setups"]["public"]["params"]["root"] = new_root_path
